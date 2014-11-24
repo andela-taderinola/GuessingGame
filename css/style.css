@@ -37,6 +37,10 @@ label, #guess-input {
 	text-align: center;
 }
 
+#guess-input:focus, .button:focus {
+	outline: none;
+}
+
 .button {
 	height: 3em;
 	width: 7em;
@@ -57,10 +61,53 @@ label, #guess-input {
 	font-weight: bold;
 }
 
-.demo {
-	border: 1px solid red;
-	height: 1em;
+.thermoDemo, .temp80, .temp60, .temp40, .temp20, .temp10, .boiled {
+	border-radius: 0.5em;
+	padding: auto;
+	height: 1.5rem;
 }
 
+.thermoDemo {
+	border: 1px solid #fff;
+	width: 20rem;
+	color: #fff;
+	
+}
+
+.temp80 {
+	border: 1px solid #00008B;
+	width: 4rem;
+	background: #00008B;
+}
+
+.temp60 {
+	border: 1px solid #0000FF;
+	width: 8rem;
+	background: #0000FF;
+}
+
+.temp40 {
+	border: 1px solid #FF7F50;
+	width: 12rem;
+	background: #FF7F50;
+}
+
+.temp20 {
+	border: 1px solid #FF4500;
+	width: 16rem;
+	background: #FF4500;
+}
+
+.temp10 {
+	border: 1px solid #FF4500;
+	width: 18rem;
+	background: #FF4500;
+}
+
+.boiled {
+	border: 1px solid #FF0000;
+	max-width: 20rem;
+	background: #FF0000;
+}
 
 
