@@ -57,7 +57,7 @@ var guessingGame = {
 
     //check for input validity
     if(isNaN(guess) || guess > 100 || guess < 0) {
-    alert("That is not a valid guess. Please input a number between 1 and 100.");
+    guessingGame.feedbackLabel.innerText = "That is not a valid guess.";
     return;
     }  
 
