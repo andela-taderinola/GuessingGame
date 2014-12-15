@@ -26,23 +26,23 @@ var guessingGame = {
 
     var howClose = (maxGap - guessGap)/maxGap;
     var x = Math.floor(howClose*25);
-    var initialWidth = guessingGame.thermoCheck.style.width;
+    var initialWidth = this.thermoCheck.style.width;
     console.log("Bar length was " + initialWidth);
     console.log("New bar length is " + x);
     //set the new length of the thermometer bar
-    guessingGame.thermoCheck.setAttribute("style", "width:"+x+"rem;");
+    this.thermoCheck.setAttribute("style", "width:"+x+"rem;");
     //reset the initialWidth
-    initialWidth = guessingGame.thermoCheck.style.width;
+    initialWidth = this.thermoCheck.style.width;
   },
 
   //method to make '<undefined>'' choose a random number!
   chooseNumber: function() {
-    guessingGame.feedbackLabel.innerText = "Waiting for your guess...";
-    guessingGame.thermoCheck.style.width = '0.01rem';
+    this.feedbackLabel.innerText = "Waiting for your guess...";
+    this.thermoCheck.style.width = '0.01rem';
     guessNumber = 0;
     previousGuess = null;
-    guessingGame.guessInput.value = "";
-    guessingGame.submitButton.disabled = false;
+    this.guessInput.value = "";
+    this.submitButton.disabled = false;
     hiddenNumber = Math.round(Math.random() * 100);
     console.log("I have picked a number bewteen 1 and 100");
     //console.log(hiddenNumber);
@@ -52,26 +52,26 @@ var guessingGame = {
   //method to accept the user guess and check it against the hidden number
   checkGuess: function() {
 
-    var input = guessingGame.guessInput.value;
+    var input = this.guessInput.value;
     guess = parseInt(input);
 
     //check for input validity
     if(isNaN(guess) || guess > 100 || guess < 0) {
-    guessingGame.feedbackLabel.innerText = "That is not a valid guess.";
+    this.feedbackLabel.innerText = "That is not a valid guess.";
     return;
     }  
 
     //check gap between guess and hiddenNumber
     guessGap = Math.abs(hiddenNumber - guess);
-    guessingGame.guessInput.value = ""; //clear the input text field
+    this.guessInput.value = ""; //clear the input text field
     guessNumber++; //track number of guesses. Game over if it has exceeded 10
     var left = 10 - guessNumber;
     var tick = " " + left + " to go!";
 
       if(guessNumber == 10) {
-        guessingGame.feedbackLabel.innerText = "You've used up your guesses. My number was " + hiddenNumber + ".";  
-        guessingGame.submitButton.disabled = true;
-        guessingGame.showTemp();
+        this.feedbackLabel.innerText = "You've used up your guesses. My number was " + hiddenNumber + ".";  
+        this.submitButton.disabled = true;
+        this.showTemp();
         return;
       }
 
@@ -82,12 +82,12 @@ var guessingGame = {
       if(previousGuess === null){
         //this executes if this is the first guess
         previousGuess = guess;
-        guessingGame.feedbackLabel.innerText = "Nice first try. Try again!";
-        guessingGame.showTemp(); //call showTemp() to control the thermometer
+        this.feedbackLabel.innerText = "Nice first try. Try again!";
+        this.showTemp(); //call showTemp() to control the thermometer
       } else if(previousGuess === guess) {
         //user has entered the same guess twice in a row
-        guessingGame.feedbackLabel.innerText = "I heard you the first time. Why repeat yourself?" + tick;
-        guessingGame.showTemp();
+        this.feedbackLabel.innerText = "I heard you the first time. Why repeat yourself?" + tick;
+        this.showTemp();
       } else { //guess !== previousGuess
          
          //check difference between last guessGap and guessGap to see if the user is getting
@@ -95,31 +95,31 @@ var guessingGame = {
          var previousGuessGap = Math.abs(hiddenNumber - previousGuess);
 
           if(guessGap > previousGuessGap) {
-            guessingGame.feedbackLabel.innerText = "You're getting colder." + tick;
-            guessingGame.showTemp();
+            this.feedbackLabel.innerText = "You're getting colder." + tick;
+            this.showTemp();
           } else if(guessGap < previousGuessGap) {
-            guessingGame.feedbackLabel.innerText = "You're getting hotter!" + tick;
-            guessingGame.showTemp();
+            this.feedbackLabel.innerText = "You're getting hotter!" + tick;
+            this.showTemp();
           } else {
-            guessingGame.feedbackLabel.innerText = "I don't feel you. C'mon! You can do it!" + tick;
-            guessingGame.showTemp();
+            this.feedbackLabel.innerText = "I don't feel you. C'mon! You can do it!" + tick;
+            this.showTemp();
           }
 
           previousGuess = guess;
-          // guessingGame.giveFeedback(feedbackMsg);
+          // this.giveFeedback(feedbackMsg);
           return;
         }
 
     } else {
-        guessingGame.submitButton.disabled = true;
-        guessingGame.feedbackLabel.innerText = "Correct! You got me in " + guessNumber + " guesses!";
-        guessingGame.showTemp();
+        this.submitButton.disabled = true;
+        this.feedbackLabel.innerText = "Correct! You got me in " + guessNumber + " guesses!";
+        this.showTemp();
         return;
       }    
     
   }
 
 }
-  guessingGame.submitButton.onclick = guessingGame.checkGuess;
-  guessingGame.newGameButton.onclick = guessingGame.chooseNumber;
-  window.onload = guessingGame.chooseNumber;
+  guessingGame.submitButton.onclick = guessingGame.checkGuess.bind(guessingGame);
+  guessingGame.newGameButton.onclick = guessingGame.chooseNumber.bind(guessingGame);
+  window.onload = guessingGame.chooseNumber.bind(guessingGame);
